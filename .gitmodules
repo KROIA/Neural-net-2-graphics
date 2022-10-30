@@ -1,0 +1,3 @@
+[submodule "Extern/SFML_EditorWidget"]
+	path = Extern/SFML_EditorWidget
+	url = https://github.com/KROIA/SFML_EditorWidget
