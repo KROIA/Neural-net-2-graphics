@@ -11,10 +11,12 @@ CONFIG += c++17
 include(../Neural-net-2-graphics.pri)
 
 SOURCES += \
+    XOR.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    XOR.h \
     mainwindow.h
 
 FORMS += \

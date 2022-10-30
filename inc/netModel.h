@@ -3,6 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+#include "components/Drawable.h"
+#include "objects/CanvasObject.h"
+
 #include "backend/net.h"
 #include "neuronPainter.h"
 #include "connectionPainter.h"
@@ -14,8 +17,10 @@ namespace NeuronalNet
 	{
 		using std::vector;
 
-		class NET_API NetModel	: public Drawable
+        class NetModel : public QSFML::Objects::CanvasObject
 		{
+                class NetModelPainter;
+                friend NetModelPainter;
 			public:
 
 			
@@ -25,7 +30,7 @@ namespace NeuronalNet
 
 			void build();
 			void setVisualConfiguration(size_t conf);
-			static inline size_t getStandardVisualConfiguration();
+            static size_t getStandardVisualConfiguration();
 
 			void setStreamIndex(size_t index);
 			size_t getStreamIndex() const;
@@ -44,18 +49,20 @@ namespace NeuronalNet
 			float getSignalWidth() const;
 			float getNeuronSize() const;
 
+            void update() override;
+
 			//void setOptimization(Optimization opt);
 			//void setVisualConfiguration(size_t conf);
 
-			void draw(sf::RenderWindow* window,
-					  const sf::Vector2f &offset = sf::Vector2f(0, 0));
-			void drawDebug(sf::RenderWindow* window,
-						   const sf::Vector2f& offset = sf::Vector2f(0, 0));
+           // void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+            //void drawDebug(sf::RenderWindow* window,
+         //				   const sf::Vector2f& offset = sf::Vector2f(0, 0));
 
+            void updateGraphics();
 			protected:
 			void clear();
 			void updateNeuronDimensions();
-			void updateGraphics();
+
 			//void internal_neuronSize(float size);
 
 			vector<GraphicsNeuronInterface*> m_neuronInterface;	
@@ -68,7 +75,7 @@ namespace NeuronalNet
 			vector<ConnectionPainter*> m_connectionList;
 			vector<PixelPainter*> m_pixelPainterList;
 
-			vector<Drawable*> m_drawableList; // All drawable Objects
+            vector<QSFML::Components::Drawable*> m_drawableList; // All drawable Objects
 
 			const Net* m_net;
 
@@ -79,9 +86,26 @@ namespace NeuronalNet
 
 			//sf::Vector2f m_pos;
 			sf::Vector2f m_neuronSpacing;
+            size_t m_visualConfiguration;
+            sf::Vector2f m_pos;
 
-			
+            NetModelPainter *m_modelPainter;
+
+            private:
+            class NetModelPainter: public QSFML::Components::Drawable
+            {
+                public:
+                    NetModelPainter(const std::string &name = "NetModelPainter");
+                    NetModelPainter(const Drawable &other);
+                    ~NetModelPainter();
+
+                    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+                    NetModel *m_model;
+            };
 
 		};
+
+
 	};
 };

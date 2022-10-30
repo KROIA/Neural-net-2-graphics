@@ -1,11 +1,11 @@
-#include "graphics/netModel.h"
+#include "netModel.h"
 
 namespace NeuronalNet
 {
 	namespace Graphics
 	{
 		NetModel::NetModel(Net* net)
-			: Drawable()
+            : CanvasObject()
 		{
 			m_net				= net;
 			m_connectionWidth	= ConnectionPainter::getStandardConnectionWidth();
@@ -14,6 +14,11 @@ namespace NeuronalNet
 			m_neuronSpacing		= sf::Vector2f(50, 50);
 			m_streamIndex = 0;
 			setVisualConfiguration(getStandardVisualConfiguration());
+
+            m_modelPainter = new NetModelPainter();
+            m_modelPainter->m_model = this;
+
+            addComponent(m_modelPainter);
 			build();
 		}
 		NetModel::~NetModel()
@@ -23,14 +28,15 @@ namespace NeuronalNet
 
 		void NetModel::setVisualConfiguration(size_t conf)
 		{
-			Drawable::setVisualConfiguration(conf);
-			for (Drawable* p : m_drawableList)
+            m_visualConfiguration = conf;
+            //Drawable::setVisualConfiguration(conf);
+            /*for (Drawable* p : m_drawableList)
 			{
 				p->setVisualConfiguration(m_visualConfiguration);
-			}
+            }*/
 		}
 
-		inline size_t NetModel::getStandardVisualConfiguration()
+        size_t NetModel::getStandardVisualConfiguration()
 		{
 			return 
 				NeuronPainter::getStandardVisualConfiguration() |
@@ -298,7 +304,10 @@ namespace NeuronalNet
 		{
 			return m_neuronSize;
 		}
-
+        void NetModel::update()
+        {
+            updateGraphics();
+        }
 		/*void NetModel::setOptimization(Optimization opt)
 		{
 			switch (m_optimization)
@@ -331,36 +340,24 @@ namespace NeuronalNet
 				m_pixelPainterList[i]->setOptimization(opt);
 		}*/
 
-		void NetModel::draw(sf::RenderWindow* window,
-							const sf::Vector2f &offset)
+      /*  void NetModel::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		{
-			/*if (m_net->getHardware() != Hardware::cpu)
-			{
-				static Debug::Timer timer(true);
 
-				if (timer.getMillis() > 1000)
-				{
-					PRINT_ERROR("Wrong hardware configured for using graphical feedback.\nUse Hardware::cpu to enable get access to the memory of the net")
-					timer.reset();
-					timer.start();
-				}
-				return;
-			}*/
-			updateGraphics();
+            //updateGraphics();
 
 			for (size_t i = 0; i < m_connectionList.size(); ++i)
-				m_connectionList[i]->draw(window, offset);
+                m_connectionList[i]->draw(target, states);
 			for (size_t i = 0; i < m_neuronList.size(); ++i)
-				m_neuronList[i]->draw(window, offset);
+                m_neuronList[i]->draw(target, states);
 			if(m_visualConfiguration & VisualConfiguration::weightMap)
 				for (size_t i = 0; i < m_pixelPainterList.size(); ++i)
-					m_pixelPainterList[i]->draw(window, offset);
-		}
-		void NetModel::drawDebug(sf::RenderWindow* window,
+                    m_pixelPainterList[i]->draw(target, states);
+        }*/
+        /*void NetModel::drawDebug(sf::RenderWindow* window,
 								 const sf::Vector2f& offset)
 		{
 
-		}
+        }*/
 
 		void NetModel::clear()
 		{
@@ -580,5 +577,29 @@ namespace NeuronalNet
 			}
 		}
 		
+
+        NetModel::NetModelPainter::NetModelPainter(const std::string &name)
+        {
+
+        }
+        NetModel::NetModelPainter::NetModelPainter(const Drawable &other)
+        {
+
+        }
+        NetModel::NetModelPainter::~NetModelPainter()
+        {
+
+        }
+
+        void NetModel::NetModelPainter::draw(sf::RenderTarget& target, sf::RenderStates states) const
+        {
+            for (size_t i = 0; i < m_model->m_connectionList.size(); ++i)
+                m_model->m_connectionList[i]->draw(target, states);
+            for (size_t i = 0; i < m_model->m_neuronList.size(); ++i)
+                m_model->m_neuronList[i]->draw(target, states);
+            if(m_model->m_visualConfiguration & VisualConfiguration::weightMap)
+                for (size_t i = 0; i < m_model->m_pixelPainterList.size(); ++i)
+                    m_model->m_pixelPainterList[i]->draw(target, states);
+        }
 	};
 };

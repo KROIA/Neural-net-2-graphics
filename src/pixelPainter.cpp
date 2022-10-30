@@ -1,5 +1,5 @@
-#include "graphics/pixelPainter.h"
-
+#include "pixelPainter.h"
+#include "backend/debug.h"
 
 namespace NeuronalNet
 {
@@ -75,6 +75,15 @@ namespace NeuronalNet
 			return m_image->getSize();
 		}
 
+        void PixelPainter::setPos(const sf::Vector2f& pos)
+        {
+            m_pos = pos;
+        }
+        const sf::Vector2f& PixelPainter::getPos() const
+        {
+            return m_pos;
+        }
+
 		void PixelPainter::setDisplaySize(const sf::Vector2f& size)
 		{
 			m_displaySize = size;
@@ -108,12 +117,11 @@ namespace NeuronalNet
 
 
 
-		void PixelPainter::draw(sf::RenderWindow* window,
-								const sf::Vector2f& offset)
+        void PixelPainter::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		{
 			m_texture->loadFromImage(*m_image);
-			m_sprite->setPosition(m_pos + offset);
-			window->draw(*m_sprite);
+            m_sprite->setPosition(m_pos);
+            target.draw(*m_sprite);
 		}
 
 		void PixelPainter::drawDebug(sf::RenderWindow* window,

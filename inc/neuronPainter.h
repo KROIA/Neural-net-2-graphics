@@ -3,7 +3,7 @@
 #include "graphicsUtilities.h"
 #include "drawable.h"
 #include "backend/graphicsNeuronInterface.h"
-
+#include "components/Drawable.h"
 
 
 namespace NeuronalNet
@@ -12,7 +12,7 @@ namespace NeuronalNet
 	{
 		using std::string;
 
-		class NET_API NeuronPainter	:	public Drawable, public GraphicsNeuronInterface
+        class NeuronPainter	:	public QSFML::Components::Drawable, public GraphicsNeuronInterface
 		{
 			public:
 			NeuronPainter();
@@ -21,7 +21,7 @@ namespace NeuronalNet
 
 			const NeuronPainter& operator=(const NeuronPainter& other);
 
-			static inline size_t getStandardVisualConfiguration();
+            static size_t getStandardVisualConfiguration();
 
 			void setPos(const sf::Vector2f& pos);
 			const sf::Vector2f& getPos() const;
@@ -33,12 +33,11 @@ namespace NeuronalNet
 
 
 			// Interface implementation
-			void draw(sf::RenderWindow* window,
-					  const sf::Vector2f& offset = sf::Vector2f(0, 0));
+            void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-			virtual void update(float netinput, float output,
-								float minN, float maxN,
-								float minO, float maxO);
+            virtual void updateNeuron(float netinput, float output,
+                                      float minN, float maxN,
+                                      float minO, float maxO) override;
 
 			static const float standardSize;
 			protected:
@@ -56,6 +55,9 @@ namespace NeuronalNet
 			// Data from Net
 			float m_netinput;
 			float m_output;
+
+            // What will be showed, enable/disable specific functions
+            size_t m_visualConfiguration;
 
 			// Performance settings
 			//bool m_useTextLabel; 

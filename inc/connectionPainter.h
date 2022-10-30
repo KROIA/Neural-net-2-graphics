@@ -1,16 +1,16 @@
 #pragma once
 
 
-#include "graphicsUtilities.h"
-#include "backend/graphicsConnectionInterface.h"
-#include "graphics/neuronPainter.h"
 
+#include "backend/graphicsConnectionInterface.h"
+#include "neuronPainter.h"
+#include "components/Drawable.h"
 
 namespace NeuronalNet
 {
 	namespace Graphics
 	{
-		class ConnectionPainter : public Drawable, public GraphicsConnectionInterface
+        class ConnectionPainter : public QSFML::Components::Drawable, public GraphicsConnectionInterface
 		{
 			public:
 			ConnectionPainter(NeuronPainter* a,
@@ -18,7 +18,7 @@ namespace NeuronalNet
 			~ConnectionPainter();
 
 
-			static inline size_t getStandardVisualConfiguration();
+            static size_t getStandardVisualConfiguration();
 			
 			void setConnectionWidth(float w);
 			void setSignalWidth(float w);
@@ -33,12 +33,11 @@ namespace NeuronalNet
 
 
 			// Interface implementation
-			void draw(sf::RenderWindow* window,
-					  const sf::Vector2f& offset = sf::Vector2f(0, 0));
+            void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-			void update(float weight, float signal,
-						float minW, float maxW,
-						float minS, float maxS);
+            void updateConnection(float weight, float signal,
+                                  float minW, float maxW,
+                                  float minS, float maxS) override;
 
 			
 			static float getStandardConnectionWidth();
@@ -67,6 +66,8 @@ namespace NeuronalNet
 
 			static const float m_standardConnectionWidth;
 			static const float m_standardSignalWidth;
+
+            size_t m_visualConfiguration;
 
 			// Performance settings
 			// bool m_useWeightAsConnection;

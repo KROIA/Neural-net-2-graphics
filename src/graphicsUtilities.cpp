@@ -1,4 +1,4 @@
-#include "graphics/graphicsUtilities.h"
+#include "graphicsUtilities.h"
 #include <math.h>
 
 namespace NeuronalNet

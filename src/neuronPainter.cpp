@@ -1,5 +1,6 @@
-#include "graphics/neuronPainter.h"
+#include "neuronPainter.h"
 #include <string>
+#include "backend/debug.h"
 
 namespace NeuronalNet
 {
@@ -37,7 +38,8 @@ namespace NeuronalNet
 			m_outputText.setFont(m_font);
 
 			//setOptimization(Optimization::quality);
-			setVisualConfiguration(getStandardVisualConfiguration());
+            m_visualConfiguration = VisualConfiguration::neuronBody | VisualConfiguration::neuronTextLabel;
+            //setVisualConfiguration(getStandardVisualConfiguration());
 
 		}
 		NeuronPainter::NeuronPainter(const NeuronPainter& other)
@@ -72,7 +74,7 @@ namespace NeuronalNet
 			return *this;
 		}
 
-		inline size_t NeuronPainter::getStandardVisualConfiguration()
+        size_t NeuronPainter::getStandardVisualConfiguration()
 		{
 			return	VisualConfiguration::neuronTextLabel |
 					VisualConfiguration::neuronBody;
@@ -119,26 +121,22 @@ namespace NeuronalNet
 				}
 			}
 		}*/
-
-		void NeuronPainter::draw(sf::RenderWindow* window,
-						  const sf::Vector2f &offset)
+        void NeuronPainter::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		{		
 			if (m_visualConfiguration & VisualConfiguration::neuronBody)
 			{
-				m_circleShape.setPosition(m_pos + offset);
-				window->draw(m_circleShape);
+                target.draw(m_circleShape);
 			}
 			if (m_visualConfiguration & VisualConfiguration::neuronTextLabel)
 			{
-				m_outputText.setPosition(m_pos + offset);
-				window->draw(m_outputText);
+                target.draw(m_outputText);
 			}
 		}
 
 		// Interface implementation
-		void NeuronPainter::update(float netinput, float output,
-								   float minN, float maxN,
-								   float minO, float maxO)
+        void NeuronPainter::updateNeuron(float netinput, float output,
+                                         float minN, float maxN,
+                                         float minO, float maxO)
 		{
 			m_netinput	= netinput;
 			m_output	= output;
@@ -155,6 +153,8 @@ namespace NeuronalNet
 
 				sf::FloatRect bound = m_outputText.getGlobalBounds();
 				m_outputText.setOrigin(sf::Vector2f(bound.width / 2, bound.height / 2));
+                m_circleShape.setPosition(m_pos);
+                m_outputText.setPosition(m_pos);
 			}
 			if (m_visualConfiguration & VisualConfiguration::neuronBody)
 			{
