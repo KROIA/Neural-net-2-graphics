@@ -1,7 +1,6 @@
 #pragma once
 
 #include "graphicsUtilities.h"
-#include "drawable.h"
 #include "backend/graphicsNeuronInterface.h"
 #include "components/Drawable.h"
 

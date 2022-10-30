@@ -10,10 +10,6 @@ INCLUDEPATH +=  $$inc
 
 HEADERS += \
     $$inc/connectionPainter.h \
-    #$$inc/display.h \
-    #$$inc/displayInterface.h \
-    #$$inc/drawable.h \
-    #$$inc/drawableInterface.h \
     $$inc/graphicsUtilities.h \
     $$inc/netModel.h \
     $$inc/neuronPainter.h \
@@ -21,8 +17,6 @@ HEADERS += \
 
 SOURCES += \
     $$src/connectionPainter.cpp \
-    #$$src/display.cpp \
-    #$$src/drawable.cpp \
     $$src/graphicsUtilities.cpp \
     $$src/netModel.cpp \
     $$src/neuronPainter.cpp \
