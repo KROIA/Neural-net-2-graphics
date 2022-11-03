@@ -1,3 +1,6 @@
 [submodule "Extern/SFML_EditorWidget"]
 	path = Extern/SFML_EditorWidget
 	url = https://github.com/KROIA/SFML_EditorWidget
+[submodule "Extern/Neural-net-2"]
+	path = Extern/Neural-net-2
+	url = https://github.com/KROIA/Neural-net-2
