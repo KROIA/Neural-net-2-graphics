@@ -8,6 +8,8 @@ src = $$PWD/src
 
 INCLUDEPATH +=  $$inc
 
+DEFINES += QT_NEURAL_NET
+
 HEADERS += \
     $$inc/connectionPainter.h \
     $$inc/graphicsUtilities.h \
