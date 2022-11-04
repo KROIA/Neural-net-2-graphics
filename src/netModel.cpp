@@ -61,8 +61,12 @@ namespace NeuronalNet
 		{
 			sf::Vector2f deltaPos = pos - m_pos;
 			
-			for (size_t i = 0; i < m_neuronList.size(); ++i)
+            for(size_t i = 0; i < m_neuronList.size(); ++i)
 				m_neuronList[i]->setPos(m_neuronList[i]->getPos() + deltaPos);
+            for(size_t i= 0; i<m_pixelPainterList.size(); ++i)
+            {
+                m_pixelPainterList[i]->setPos(m_pixelPainterList[i]->getPos() + deltaPos);
+            }
 			m_pos = pos;
 		}
 		const sf::Vector2f& NetModel::getPos() const
