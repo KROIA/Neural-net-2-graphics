@@ -26,7 +26,8 @@ namespace NeuronalNet
 
 			m_pos = sf::Vector2f(0, 0);
 			m_size = standardSize;
-			m_outputText.setCharacterSize(m_size * 4 / 5);
+            m_outputText.setCharacterSize(m_size * 4 / 5);
+            m_outputText.setScale(0.1,0.1);
 			m_outputText.setFillColor(sf::Color(255, 255, 255));
 			m_circleShape.setRadius(m_size);
 
@@ -91,7 +92,7 @@ namespace NeuronalNet
 		void NeuronPainter::setSize(float size)
 		{
 			m_size = size;
-			m_outputText.setCharacterSize(m_size * 4 / 5);
+            m_outputText.setCharacterSize(m_size * 8);
 			m_circleShape.setRadius(m_size);
 			m_circleShape.setOrigin(sf::Vector2f(m_size, m_size));
 		}
@@ -152,7 +153,7 @@ namespace NeuronalNet
 
 
 				sf::FloatRect bound = m_outputText.getGlobalBounds();
-				m_outputText.setOrigin(sf::Vector2f(bound.width / 2, bound.height / 2));
+                m_outputText.setOrigin(sf::Vector2f(bound.width / (2*m_outputText.getScale().x), bound.height / (2*m_outputText.getScale().y)));
                 m_circleShape.setPosition(m_pos);
                 m_outputText.setPosition(m_pos);
 			}
