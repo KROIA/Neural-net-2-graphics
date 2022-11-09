@@ -185,8 +185,8 @@ namespace NeuronalNet
 			if (!(m_startNeuron || m_endNeuron))
 				return;
 
-			sf::Vector2f startPos = m_startNeuron->getPos() + sf::Vector2f(m_startNeuron->getSize()-2,0);
-			sf::Vector2f endPos   = m_endNeuron->getPos() + sf::Vector2f(-m_endNeuron->getSize()+5,0);
+            sf::Vector2f startPos = m_startNeuron->getPos() + sf::Vector2f(m_startNeuron->getSize()*0.8,0);
+            sf::Vector2f endPos   = m_endNeuron->getPos()   - sf::Vector2f(m_endNeuron->getSize()*0.8,0);
 			sf::Vector2f deltaPos = endPos - startPos;
 
 

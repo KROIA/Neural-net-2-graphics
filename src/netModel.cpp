@@ -412,6 +412,8 @@ namespace NeuronalNet
 				}
 				pos.y = m_pos.y + deltaPos.y * maxYSize;
 				sf::Vector2f offset;
+                float pixDisplaySize = deltaPos.x / (m_hiddenNeurons[x].size()+1);
+                m_pixelPainterList[x]->setDisplaySize(sf::Vector2f(pixDisplaySize,pixDisplaySize));
 				sf::Vector2f scale = m_pixelPainterList[x]->getDisplaySize();
 				offset.y = -m_neuronSpacing.y/2.f;
 				if (x == 0)
@@ -438,6 +440,8 @@ namespace NeuronalNet
 			}
 			pos.y = m_pos.y + deltaPos.y * maxYSize;
 			sf::Vector2f offset;
+            float pixDisplaySize = deltaPos.x / (m_outputNeurons.size()+1);
+            m_pixelPainterList[m_pixelPainterList.size() - 1]->setDisplaySize(sf::Vector2f(pixDisplaySize,pixDisplaySize));
 			sf::Vector2f scale = m_pixelPainterList[m_pixelPainterList.size() - 1]->getDisplaySize();
 			offset.y = -m_neuronSpacing.y / 2.f;
 			if (m_hiddenNeurons.size() == 0)
