@@ -93,6 +93,7 @@ namespace NeuronalNet
 				return;
 			}
 			clear();
+            m_dimensionConfigStr = m_net->getDimensionConfigString();
 
 			for (size_t y = 0; y < m_net->getInputCount(); ++y)
 			{
@@ -457,7 +458,17 @@ namespace NeuronalNet
 		}
 		void NetModel::updateGraphics()
 		{
+
 			m_net->graphics_update(m_neuronInterface, m_connectionInterface, m_streamIndex);
+            if(GraphicsError::hasError())
+            {
+                if(m_dimensionConfigStr != m_net->getDimensionConfigString())
+                {
+                    // Rebuild
+                    build();
+                    GraphicsError::clearError();
+                }
+            }
 
 			if (m_visualConfiguration & VisualConfiguration::weightMap)
 			{

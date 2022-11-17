@@ -83,6 +83,7 @@ namespace NeuronalNet
 			float m_signalWidth;
 			float m_neuronSize;
 			size_t m_streamIndex;
+            std::string m_dimensionConfigStr;
 
 			//sf::Vector2f m_pos;
 			sf::Vector2f m_neuronSpacing;

@@ -29,7 +29,7 @@ namespace NeuronalNet
 
 			void setPixel(const sf::Vector2u& pos, const sf::Color& color);
 			void setPixel(size_t x, size_t y, const sf::Color& color);
-			const sf::Color& getPixel(const sf::Vector2u& pos);
+            sf::Color getPixel(const sf::Vector2u& pos);
 
 			
             void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

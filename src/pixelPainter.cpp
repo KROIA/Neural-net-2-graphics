@@ -110,7 +110,7 @@ namespace NeuronalNet
 			m_image->setPixel(x, y, color);
 		}
 
-		const sf::Color& PixelPainter::getPixel(const sf::Vector2u& pos)
+        sf::Color PixelPainter::getPixel(const sf::Vector2u& pos)
 		{
 			return m_image->getPixel(pos.x, pos.y);
 		}
