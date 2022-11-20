@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "VisibleCamera.h"
-#include "BackgroundGrid.h"
 #include "netModel.h"
 
 using namespace QSFML;

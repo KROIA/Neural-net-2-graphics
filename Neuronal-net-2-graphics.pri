@@ -1,7 +1,7 @@
 
 #include(../SFML_EditorWidget/SFML_EditorWidget.pri)
 include(Extern/SFML_EditorWidget/SFML_EditorWidget.pri)
-include(Extern/Neural-net-2/Neural-net-2.pri)
+include(Extern/Neuronal-net-2/Neuronal-net-2.pri)
 
 inc = $$PWD/inc
 src = $$PWD/src

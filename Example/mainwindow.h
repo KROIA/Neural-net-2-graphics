@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QTimer>
-#include "Canvas.h"
+#include "QSFML_EditorWidget.h"
 #include "XOR.h"
 
 QT_BEGIN_NAMESPACE
