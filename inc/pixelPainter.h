@@ -18,7 +18,7 @@ namespace NeuronalNet
 
 			void setDimenstions(const sf::Vector2u &dim);
 			void setDimenstions(size_t x,size_t y);
-			const sf::Vector2u& getDimensions();
+            sf::Vector2u getDimensions();
 
             void setPos(const sf::Vector2f& pos);
             const sf::Vector2f& getPos() const;

@@ -70,7 +70,7 @@ namespace NeuronalNet
 			m_sprite->setScale(m_displaySize);
 		}
 
-		const sf::Vector2u& PixelPainter::getDimensions()
+        sf::Vector2u PixelPainter::getDimensions()
 		{
 			return m_image->getSize();
 		}
